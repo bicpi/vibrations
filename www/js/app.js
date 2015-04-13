@@ -18,7 +18,7 @@ angular.module('starter', ['ionic'])
   });
 })
 
-.controller('VibrationsCtrl', function($scope){
+.controller('VibrationsCtrl', function($scope, $ionicPopup, $ionicModal){
     $scope.vibrations = [
         {
             name: 'Foo',
@@ -33,4 +33,46 @@ angular.module('starter', ['ionic'])
             duration: 499
         }
     ];
+
+    $scope.list = {
+        showDelete: false
+    };
+
+    $scope.delete = function(item) {
+        $scope.vibrations.splice($scope.vibrations.indexOf(item), 1);
+    };
+
+
+    $scope.vibration = {
+        name: '',
+        duration: ''
+    };
+
+    $ionicModal.fromTemplateUrl('create.html', function(modal) {
+        $scope.createModal = modal;
+    }, {
+        focusFirstInput: true,
+        scope: $scope
+    });
+
+    $scope.new = function() {
+        $scope.createModal.show();
+    };
+        
+    $scope.close = function() {
+        $scope.createModal.hide();
+    };
+
+    $scope.create = function(vibration) {
+        if (!vibration.name || !vibration.duration) {
+            $ionicPopup.alert({
+                title: 'Validation Error',
+                template: 'Please enter name and duration'
+            });
+            return;
+        }
+        $scope.vibrations.push(angular.copy(vibration));
+        $scope.createModal.hide();
+        vibration.name = vibration.duration = '';
+    };
 });

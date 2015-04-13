@@ -21,15 +21,50 @@
   <body ng-app="starter" ng-controller="VibrationsCtrl">
     <ion-pane>
       <ion-header-bar class="bar-stable">
+        <div class="buttons">
+            <button class="button button-icon ion-ios-minus-outline"
+                    ng-click="list.showDelete=!list.showDelete"></button>
+        </div>
         <h1 class="title">PHPmagazin: Vibrations</h1>
+        <div class="buttons">
+            <button class="button button-icon ion-ios-plus-outline"
+                    ng-click="new()"></button>
+        </div>
       </ion-header-bar>
       <ion-content>
-        <ion-list>
+        <ion-list show-delete="list.showDelete">
             <ion-item ng-repeat="vibration in vibrations">
+                <ion-delete-button class="ion-minus-circled"
+                                   ng-click="delete(vibration)">
+                </ion-delete-button>
                 {{ vibration.name }}: {{ vibration.duration }}ms
             </ion-item>
         </ion-list>
       </ion-content>
     </ion-pane>
+
+    <script id="create.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar>
+                <h1 class="title">Create New Vibration</h1>
+                <button class="button button-clear" ng-click="close()">Cancel</button>
+            </ion-header-bar>
+            <ion-content>
+                <form ng-submit="create(vibration)">
+                    <div class="list">
+                        <label class="item item-input">
+                            <input type="text" placeholder="Name" ng-model="vibration.name">
+                        </label>
+                        <label class="item item-input">
+                            <input type="text" placeholder="Duration" ng-model="vibration.duration">
+                        </label>
+                    </div>
+                    <div class="padding">
+                        <button type="submit" class="button button-block button-primary">Create Vibration</button>
+                    </div>
+                </form>
+            </ion-content>
+        </ion-modal-view>
+    </script>
   </body>
 </html>
