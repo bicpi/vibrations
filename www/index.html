@@ -12,6 +12,7 @@
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
@@ -23,7 +24,7 @@
       <ion-header-bar class="bar-stable">
         <div class="buttons">
             <button class="button button-icon ion-ios-minus-outline"
-                    ng-click="list.showDelete=!list.showDelete"></button>
+                    ng-click="listConfig.showDelete=!listConfig.showDelete"></button>
         </div>
         <h1 class="title">PHPmagazin: Vibrations</h1>
         <div class="buttons">
@@ -33,7 +34,7 @@
       </ion-header-bar>
       <ion-content>
         <ion-list show-delete="list.showDelete">
-            <ion-item ng-repeat="vibration in vibrations">
+            <ion-item ng-repeat="vibration in vibrations" ng-click="vibrate(vibration)">
                 <ion-delete-button class="ion-minus-circled"
                                    ng-click="delete(vibration)">
                 </ion-delete-button>

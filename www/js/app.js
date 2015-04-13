@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+angular.module('starter', ['ionic', 'ngCordova'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -18,7 +18,7 @@ angular.module('starter', ['ionic'])
   });
 })
 
-.controller('VibrationsCtrl', function($scope, $ionicPopup, $ionicModal){
+.controller('VibrationsCtrl', function($scope, $ionicPopup, $ionicModal, $cordovaVibration, $timeout){
     $scope.vibrations = [
         {
             name: 'Foo',
@@ -34,7 +34,7 @@ angular.module('starter', ['ionic'])
         }
     ];
 
-    $scope.list = {
+    $scope.listConfig = {
         showDelete: false
     };
 
@@ -74,5 +74,16 @@ angular.module('starter', ['ionic'])
         $scope.vibrations.push(angular.copy(vibration));
         $scope.createModal.hide();
         vibration.name = vibration.duration = '';
+    };
+
+    $scope.vibrate = function(vibration) {
+        var alert = $ionicPopup.alert({
+            title: 'Vibrations',
+            template: vibration.name
+        });
+        $timeout(function(){
+            alert.close();
+        }, vibration.duration);
+        $cordovaVibration.vibrate(parseInt(vibration.duration));
     };
 });
