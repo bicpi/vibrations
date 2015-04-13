@@ -17,3 +17,20 @@ angular.module('starter', ['ionic'])
     }
   });
 })
+
+.controller('VibrationsCtrl', function($scope){
+    $scope.vibrations = [
+        {
+            name: 'Foo',
+            duration: 800
+        },
+        {
+            name: 'Bar',
+            duration: 240
+        },
+        {
+            name: 'Baz',
+            duration: 499
+        }
+    ];
+});
