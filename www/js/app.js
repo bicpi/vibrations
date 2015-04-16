@@ -77,13 +77,14 @@ angular.module('starter', ['ionic', 'ngCordova'])
     };
 
     $scope.vibrate = function(vibration) {
+        var duration = parseInt(vibration.duration);
         var alert = $ionicPopup.alert({
             title: 'Vibrations',
             template: vibration.name
         });
         $timeout(function(){
             alert.close();
-        }, vibration.duration);
-        $cordovaVibration.vibrate(parseInt(vibration.duration));
+        }, duration);
+        $cordovaVibration.vibrate(duration);
     };
 });
